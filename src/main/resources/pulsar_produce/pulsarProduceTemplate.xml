@@ -1,0 +1,28 @@
+<template xmlns="http://ws.apache.org/ns/synapse" name="publishMessage">
+    <parameter name="topicName" description="The name of the Pulsar topic to which messages will be published."/>
+    <parameter name="compressionType" description="The compression type to use for messages. Supported values: NONE, LZ4, ZLIB, ZSTD, SNAPPY."/>
+    <parameter name="sendMode" description="The mode for sending the message: SYNC (wait for ack) or ASYNC (send and continue)."/>
+    <parameter name="batchingEnabled" description="Whether message batching is enabled for the producer. Batching can improve throughput by sending multiple messages in a single request."/>
+    <parameter name="batchingMaxMessages" description="The maximum number of messages permitted in a batch."/>
+    <parameter name="batchingMaxBytes" description="The maximum size of a batch in bytes."/>
+    <parameter name="batchingMaxPublishDelayMicros" description="The maximum delay in microseconds for batching messages before they are published."/>
+    <parameter name="chunkingEnabled" description="Whether chunking is enabled for large messages. If enabled, large messages are split into smaller chunks."/>
+    <parameter name="chunkMaxMessageSize" description="The maximum size (in bytes) of a single message before it gets chunked."/>
+    <parameter name="sendTimeoutMs" description="The timeout in milliseconds for a message to be sent. If the message is not acknowledged within this time, it is marked as failed."/>
+    <parameter name="blockIfQueueFull" description="Whether the producer should block when the outgoing message queue is full. If false, send operations will fail immediately when the queue is full."/>
+    <parameter name="maxPendingMessages" description="The maximum number of messages allowed to be pending in the outgoing queue."/>
+    <parameter name="maxPendingMessagesAcrossPartitions" description="The maximum number of pending messages across all partitions. This is useful for partitioned topics."/>
+    <parameter name="hashingScheme" description="The hashing scheme used to determine the partition for a message. Supported values: JavaStringHash, Murmur3_32Hash, BoostHash."/>
+    <parameter name="messageRoutingMode" description="The message routing mode for partitioned topics. Supported values: SinglePartition, RoundRobinPartition, CustomPartition."/>
+    <parameter name="cryptoFailureAction" description="The action to take when message encryption fails. Supported values: FAIL, SEND."/>
+    <parameter name="key" description="The key associated with the message for partitioning or routing."/>
+    <parameter name="value" description="The value or payload of the message to be published."/>
+    <parameter name="properties" description="Custom properties to attach to the message as key-value pairs."/>
+    <parameter name="sequenceId" description="The sequence ID to assign to the message for deduplication or ordering."/>
+    <parameter name="deliverAfter" description="The delay duration after which the message should be delivered (e.g., 5s, 1m)."/>
+    <parameter name="responseVariable" description="The name of the variable to which the output should be stored."/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the response of the operation."/>
+    <sequence>
+        <class name="org.wso2.integration.connector.PulsarProducer"/>
+    </sequence>
+</template>

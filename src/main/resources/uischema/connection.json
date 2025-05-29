@@ -1,0 +1,354 @@
+{
+  "connectorName": "pulsar",
+  "connectionName": "pulsar",
+  "title": "Pulsar Connection",
+  "help": "<h1>Apache Pulsar Connector</h1> <b>The Apache Pulsar connector allows you to access the Pulsar Producer API through WSO2 MI and acts as a message producer that facilitates message publishing. The Pulsar connector sends messages to the Apache Pulsar brokers.</b>",
+  "elements": [
+    {
+      "type": "attribute",
+      "value": {
+        "name": "connectionName",
+        "displayName": "Connection Name",
+        "inputType": "string",
+        "defaultValue": "PULSAR_CONNECTION_1",
+        "required": "true",
+        "helpTip": "The name for the pulsar connection",
+        "validation": "nameWithoutSpecialCharactors"
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "serviceUrl",
+              "displayName": "Broker URL",
+              "inputType": "stringOrExpression",
+              "required": "true",
+              "defaultValue": "pulsar://",
+              "matchPattern": "^pulsar://",
+              "helpTip": "The Pulsar service URL to connect to (e.g., pulsar://localhost:6650)."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "Advanced",
+        "isCollapsed": true,
+        "elements": [
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Connection Timeouts",
+              "isCollapsed": false,
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "connectionTimeoutMs",
+                    "displayName": "Connection Timeout (in milliseconds)",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "validateType": "number",
+                    "helpTip": "Timeout for establishing a connection (in milliseconds)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "operationTimeoutSeconds",
+                    "displayName": "Operation Timeout (in seconds)",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "validateType": "number",
+                    "helpTip": "Timeout for client operations (in seconds)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "requestTimeoutMs",
+                    "displayName": "Request Timeout (in milliseconds)",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Timeout for requests (in milliseconds)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "lookupTimeoutMs",
+                    "displayName": "Lookup Timeout (in milliseconds)",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Timeout for lookup requests (in milliseconds)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "connectionMaxIdleSeconds",
+                    "displayName": "Connection Max Idle Time (in seconds)",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Maximum idle time for connections (in seconds)."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Threading & Performance",
+              "isCollapsed": false,
+              "elements":[
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "numIoThreads",
+                    "displayName": "Number of IO Threads",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "validateType": "number",
+                    "helpTip": "Number of IO threads for Pulsar client."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "numListenerThreads",
+                    "displayName": "Number of Listener Threads",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Number of listener threads for Pulsar client."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "enableBusyWait",
+                    "displayName": "Enable Busy Wait",
+                    "inputType": "boolean",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Enable busy-wait for IO threads."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Reconnection & Backoff",
+              "isCollapsed": false,
+              "elements":[
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "initialBackoffInterval",
+                    "displayName": "Initial Backoff Interval (in milliseconds)",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Initial backoff interval for reconnection attempts (in milliseconds)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "maxBackoffInterval",
+                    "displayName": "Max Backoff Interval (in milliseconds)",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "validateType": "number",
+                    "required": "false",
+                    "helpTip": "Maximum backoff interval for reconnection attempts (in milliseconds)."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Connection Pooling",
+              "isCollapsed": false,
+              "elements":[
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "connectionsPerBroker",
+                    "displayName": "Number of Connections Per Broker",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Number of connections per broker."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "maxLookupRedirects",
+                    "displayName": "Maximum Number of Lookup Redirects",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Maximum number of lookup redirects allowed."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "maxLookupRequest",
+                    "displayName": "Maximum Number of Lookup Requests",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Maximum number of lookup requests."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "concurrentLookupRequest",
+                    "displayName": "Number of Concurrent Lookup Requests",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Number of concurrent lookup requests allowed."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "maxConcurrentLookupRequests",
+                    "displayName": "Maximum Number of Concurrent Lookup Requests",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Maximum number of concurrent lookup requests allowed."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "maxNumberOfRejectedRequestPerConnection",
+                    "displayName": "Maximum Number Of Rejected Request Per Connection",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Maximum number of rejected requests per connection."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Other",
+              "isCollapsed": false,
+              "elements":[
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "useTcpNoDelay",
+                    "displayName": "Enable TCP No Delay",
+                    "inputType": "boolean",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Enable TCP no delay for network connections."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "enableTransaction",
+                    "displayName": "Enable Transaction",
+                    "inputType": "boolean",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Enable transaction support in Pulsar client."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "keepAliveIntervalSeconds",
+                    "displayName": "Keep Alive Interval (in seconds)",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Keep-alive interval for broker connections (in seconds)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "statsIntervalSeconds",
+                    "displayName": "Stats Interval (in seconds)",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "validateType": "number",
+                    "helpTip": "Interval for statistics collection (in seconds)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "memoryLimitBytes",
+                    "displayName": "Memory Limit (in bytes)",
+                    "inputType": "stringOrExpression",
+                    "validateType": "number",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Memory limit for Pulsar client (in bytes)."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "listenerName",
+                    "displayName": "Listener Name",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Listener name for the Pulsar client."
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

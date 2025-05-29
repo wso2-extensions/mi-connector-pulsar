@@ -1,0 +1,107 @@
+<template xmlns="http://ws.apache.org/ns/synapse" name="init">
+    <parameter name="name" description="Unique name to identify the connection by."/>
+    <parameter name="serviceUrl" description="The Pulsar service URL to connect to (e.g., pulsar://localhost:6650)."/>
+    <parameter name="authentication" description="Authentication plugin and parameters for Pulsar client."/>
+    <parameter name="operationTimeoutSeconds" description="Timeout for client operations (in seconds)."/>
+    <parameter name="statsIntervalSeconds" description="Interval for statistics collection (in seconds)."/>
+    <parameter name="numIoThreads" description="Number of IO threads for Pulsar client."/>
+    <parameter name="numListenerThreads" description="Number of listener threads for Pulsar client."/>
+    <parameter name="useTcpNoDelay" description="Enable TCP no delay for network connections."/>
+    <parameter name="requestTimeoutMs" description="Timeout for requests (in milliseconds)."/>
+    <parameter name="maxLookupRequests" description="Maximum number of lookup requests allowed on each broker connection."/>
+    <parameter name="maxConcurrentLookupRequests" description="Maximum number of concurrent lookup requests allowed on each broker connection."/>
+    <parameter name="maxRejectedRequestsPerConnection" description="Maximum number of rejected requests per connection."/>
+    <parameter name="keepAliveIntervalSeconds" description="Keep-alive interval for broker connections (in seconds)."/>
+    <parameter name="maxBackoffInterval" description="Maximum backoff interval for reconnection attempts (in milliseconds)."/>
+    <parameter name="concurrentLookupRequest" description="Number of concurrent lookup requests allowed."/>
+    <parameter name="connectionMaxIdleSeconds" description="Maximum idle time for connections (in seconds)."/>
+    <parameter name="connectionTimeoutMs" description="Timeout for establishing a connection (in milliseconds)."/>
+    <parameter name="connectionsPerBroker" description="Number of connections per broker."/>
+    <parameter name="dnsLookupBindAddress" description="Bind address for DNS lookup."/>
+    <parameter name="dnsLookupBindPort" description="Bind port for DNS lookup."/>
+    <parameter name="dnsServerAddresses" description="DNS server addresses to use for lookups."/>
+    <parameter name="enableBusyWait" description="Enable busy-wait for IO threads."/>
+    <parameter name="enableTransaction" description="Enable transaction support in Pulsar client."/>
+    <parameter name="initialBackoffInterval" description="Initial backoff interval for reconnection attempts (in milliseconds)."/>
+    <parameter name="listenerName" description="Listener name for the Pulsar client."/>
+    <parameter name="lookupTimeoutMs" description="Timeout for lookup requests (in milliseconds)."/>
+    <parameter name="maxLookupRedirects" description="Maximum number of lookup redirects allowed."/>
+    <parameter name="maxLookupRequest" description="Maximum number of lookup requests."/>
+    <parameter name="maxNumberOfRejectedRequestPerConnection" description="Maximum number of rejected requests per connection."/>
+    <parameter name="memoryLimitBytes" description="Memory limit for Pulsar client (in bytes)."/>
+    <parameter name="tlsTrustCertsFilePath" description="Path to the TLS trust certificates file."/>
+    <parameter name="tlsAllowInsecureConnection" description="Allow insecure TLS connections."/>
+    <parameter name="enableTlsHostnameVerification" description="Enable hostname verification for TLS connections."/>
+    <parameter name="useKeyStoreTls" description="Enable TLS using keystore."/>
+    <parameter name="tlsTrustStoreType" description="Type of the TLS trust store."/>
+    <parameter name="tlsTrustStorePath" description="Path to the TLS trust store."/>
+    <parameter name="tlsTrustStorePassword" description="Password for the TLS trust store."/>
+    <parameter name="tlsCiphers" description="List of enabled TLS ciphers."/>
+    <parameter name="tlsProtocols" description="List of enabled TLS protocols."/>
+    <parameter name="useTLS" description="Enable TLS for Pulsar client connection."/>
+    <parameter name="tlsCertificateFilePath" description="Path to the TLS certificate file."/>
+    <parameter name="tlsKeyFilePath" description="Path to the TLS key file."/>
+    <parameter name="tlsKeyStoreType" description="Type of the TLS key store."/>
+    <parameter name="tlsKeyStorePath" description="Path to the TLS key store."/>
+    <parameter name="tlsKeyStorePassword" description="Password for the TLS key store."/>
+    <parameter name="autoCertRefreshSeconds" description="Interval for automatic certificate refresh (in seconds)."/>
+    <parameter name="authorizationType" description="Type of authorization (e.g., JWT, TLS, OAUTH2, NONE)."/>
+    <parameter name="authParamMap" description="Map of authentication parameters."/>
+    <parameter name="authParams" description="Authentication parameters string."/>
+    <parameter name="authPluginClassName" description="Class name of the authentication plugin."/>
+    <parameter name="jwtToken" description="JWT token for Pulsar client."/>
+    <sequence>
+        <property expression="$func:name" name="name"/>
+        <property expression="$func:serviceUrl" name="pulsar.serviceUrl"/>
+        <property expression="$func:authentication" name="pulsar.authentication"/>
+        <property expression="$func:operationTimeoutSeconds" name="pulsar.operationTimeoutSeconds"/>
+        <property expression="$func:statsIntervalSeconds" name="pulsar.statsIntervalSeconds"/>
+        <property expression="$func:numIoThreads" name="pulsar.numIoThreads"/>
+        <property expression="$func:numListenerThreads" name="pulsar.numListenerThreads"/>
+        <property expression="$func:useTcpNoDelay" name="pulsar.useTcpNoDelay"/>
+        <property expression="$func:requestTimeoutMs" name="pulsar.requestTimeoutMs"/>
+        <property expression="$func:maxLookupRequests" name="pulsar.maxLookupRequests"/>
+        <property expression="$func:maxConcurrentLookupRequests" name="pulsar.maxConcurrentLookupRequests"/>
+        <property expression="$func:maxRejectedRequestsPerConnection" name="pulsar.maxRejectedRequestsPerConnection"/>
+        <property expression="$func:keepAliveIntervalSeconds" name="pulsar.keepAliveIntervalSeconds"/>
+        <property expression="$func:maxBackoffInterval" name="pulsar.maxBackoffInterval"/>
+        <property expression="$func:concurrentLookupRequest" name="pulsar.concurrentLookupRequest"/>
+        <property expression="$func:connectionMaxIdleSeconds" name="pulsar.connectionMaxIdleSeconds"/>
+        <property expression="$func:connectionTimeoutMs" name="pulsar.connectionTimeoutMs"/>
+        <property expression="$func:connectionsPerBroker" name="pulsar.connectionsPerBroker"/>
+        <property expression="$func:dnsLookupBindAddress" name="pulsar.dnsLookupBindAddress"/>
+        <property expression="$func:dnsLookupBindPort" name="pulsar.dnsLookupBindPort"/>
+        <property expression="$func:dnsServerAddresses" name="pulsar.dnsServerAddresses"/>
+        <property expression="$func:enableBusyWait" name="pulsar.enableBusyWait"/>
+        <property expression="$func:enableTransaction" name="pulsar.enableTransaction"/>
+        <property expression="$func:initialBackoffInterval" name="pulsar.initialBackoffInterval"/>
+        <property expression="$func:listenerName" name="pulsar.listenerName"/>
+        <property expression="$func:lookupTimeoutMs" name="pulsar.lookupTimeoutMs"/>
+        <property expression="$func:maxLookupRedirects" name="pulsar.maxLookupRedirects"/>
+        <property expression="$func:maxLookupRequest" name="pulsar.maxLookupRequest"/>
+        <property expression="$func:maxNumberOfRejectedRequestPerConnection" name="pulsar.maxNumberOfRejectedRequestPerConnection"/>
+        <property expression="$func:memoryLimitBytes" name="pulsar.memoryLimitBytes"/>
+        <property expression="$func:tlsCertificateFilePath" name="pulsar.tlsCertificateFilePath"/>
+        <property expression="$func:tlsKeyFilePath" name="pulsar.tlsKeyFilePath"/>
+        <property expression="$func:tlsTrustCertsFilePath" name="pulsar.tlsTrustCertsFilePath"/>
+        <property expression="$func:tlsAllowInsecureConnection" name="pulsar.tlsAllowInsecureConnection"/>
+        <property expression="$func:enableTlsHostnameVerification" name="pulsar.enableTlsHostnameVerification"/>
+        <property expression="$func:useKeyStoreTls" name="pulsar.useKeyStoreTls"/>
+        <property expression="$func:tlsTrustStoreType" name="pulsar.tlsTrustStoreType"/>
+        <property expression="$func:tlsTrustStorePath" name="pulsar.tlsTrustStorePath"/>
+        <property expression="$func:tlsTrustStorePassword" name="pulsar.tlsTrustStorePassword"/>
+        <property expression="$func:tlsKeyStoreType" name="pulsar.tlsKeyStoreType"/>
+        <property expression="$func:tlsKeyStorePath" name="pulsar.tlsKeyStorePath"/>
+        <property expression="$func:tlsKeyStorePassword" name="pulsar.tlsKeyStorePassword"/>
+        <property expression="$func:tlsCiphers" name="pulsar.tlsCiphers"/>
+        <property expression="$func:tlsProtocols" name="pulsar.tlsProtocols"/>
+        <property expression="$func:useTLS" name="pulsar.useTLS"/>
+        <property expression="$func:authorizationType" name="pulsar.authorizationType"/>
+        <property expression="$func:jwtToken" name="pulsar.jwtToken"/>
+        <property expression="$func:authParamMap" name="pulsar.authParamMap"/>
+        <property expression="$func:authParams" name="pulsar.authParams"/>
+        <property expression="$func:authPluginClassName" name="pulsar.authPluginClassName"/>
+        <property expression="$func:autoCertRefreshSeconds" name="pulsar.autoCertRefreshSeconds"/>
+        <class name="org.wso2.integration.connector.PulsarConfig"/>
+    </sequence>
+</template>
