@@ -29,9 +29,6 @@ dependencies:
   - groupId: "org.apache.pulsar"
     artifactId: "pulsar-common"
     version: "4.0.4"
-  - groupId: "org.wso2.integration.connector.core"
-    artifactId: "mi-connector-core"
-    version: "0.9.2"
 
 repositories:
   - id: "wso2-nexus"
