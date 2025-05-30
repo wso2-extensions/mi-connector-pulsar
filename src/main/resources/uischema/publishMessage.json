@@ -1,0 +1,408 @@
+{
+  "connectorName": "pulsar",
+  "operationName": "publishMessage",
+  "title": "Publish Message",
+  "help": "<h1>Publish Message</h1> <b>The publishMessage operation allows you to publish messages to the Apache Pulsar brokers via topics.</b>",
+  "elements": [
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "PublishMessage",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "configRef",
+              "displayName": "Connection",
+              "inputType": "connection",
+              "allowedConnectionTypes": [
+                "pulsar",
+                "pulsarSecure"
+              ],
+              "defaultType": "connection.pulsar",
+              "defaultValue": "",
+              "required": "true",
+              "helpTip": "Connection to be used"
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Producer Settings",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "topicName",
+                    "displayName": "Topic Name",
+                    "inputType": "string",
+                    "defaultValue": "",
+                    "required": "true",
+                    "helpTip": "The name of the Pulsar topic to which messages will be published."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "compressionType",
+                    "displayName": "Compression Type",
+                    "inputType": "combo",
+                    "defaultValue": "NONE",
+                    "required": "false",
+                    "helpTip": "The compression type to use for messages. Supported values: NONE, LZ4, ZLIB, ZSTD, SNAPPY.",
+                    "comboValues": [
+                      "NONE",
+                      "LZ4",
+                      "ZLIB",
+                      "ZSTD",
+                      "SNAPPY"
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "sendMode",
+                    "displayName": "Send Mode",
+                    "inputType": "combo",
+                    "defaultValue": "Sync",
+                    "required": "false",
+                    "helpTip": "Whether chunking is enabled for large messages. If enabled, large messages are split into smaller chunks.",
+                    "comboValues": [
+                      "Sync",
+                      "Async"
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "batchingEnabled",
+                    "displayName": "Batching Enabled",
+                    "inputType": "boolean",
+                    "defaultValue": "true",
+                    "required": "false",
+                    "helpTip": "Whether message batching is enabled for the producer. Batching can improve throughput by sending multiple messages in a single request."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "batchingMaxMessages",
+                    "displayName": "Batching Max Messages",
+                    "inputType": "string",
+                    "defaultValue": "1000",
+                    "required": "false",
+                    "validateType": "number",
+                    "helpTip": "The maximum number of messages permitted in a batch.",
+                    "enableCondition": [
+                      {
+                        "batchingEnabled": "true"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "batchingMaxBytes",
+                    "displayName": "Batching Max Size (in Bytes)",
+                    "inputType": "string",
+                    "defaultValue": "",
+                    "required": "false",
+                    "validateType": "number",
+                    "helpTip": "The maximum size of a batch in bytes",
+                    "enableCondition": [
+                      {
+                        "batchingEnabled": "true"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "batchingMaxPublishDelayMicros",
+                    "displayName": "Batching Max Publish Delay (in microseconds)",
+                    "inputType": "string",
+                    "defaultValue": "1000",
+                    "required": "false",
+                    "validateType": "number",
+                    "helpTip": "The maximum delay in microseconds for batching messages before they are published.",
+                    "enableCondition": [
+                      {
+                        "batchingEnabled": "true"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "chunkingEnabled",
+                    "displayName": "Chunking Enabled",
+                    "inputType": "boolean",
+                    "defaultValue": "false",
+                    "required": "false",
+                    "helpTip": "Whether chunking is enabled for large messages. If enabled, large messages are split into smaller chunks.",
+                    "enableCondition": [
+                      {
+                        "batchingEnabled": "false"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "chunkMaxMessageSize",
+                    "displayName": "Chunk Max Message Size (in Bytes)",
+                    "inputType": "string",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "The maximum size (in bytes) of a single message before it gets chunked.",
+                    "enableCondition": [
+                      {
+                        "chunkingEnabled": "true"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attributeGroup",
+                  "value": {
+                    "groupName": "Advanced",
+                    "isCollapsed": true,
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "sendTimeoutMs",
+                          "displayName": "Send Timeout (ms)",
+                          "inputType": "string",
+                          "defaultValue": "",
+                          "validateType": "number",
+                          "required": "false",
+                          "helpTip": "The timeout in milliseconds for a message to be sent. If the message is not acknowledged within this time, it is marked as failed."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "blockIfQueueFull",
+                          "displayName": "Block Producer If Queue Full",
+                          "inputType": "boolean",
+                          "defaultValue": "false",
+                          "required": "false",
+                          "helpTip": "Whether the producer should block when the outgoing message queue is full. If false, send operations will fail immediately when the queue is full."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "maxPendingMessages",
+                          "displayName": "Max Pending Messages",
+                          "inputType": "string",
+                          "defaultValue": "",
+                          "validateType": "number",
+                          "required": "false",
+                          "helpTip": "The maximum number of messages allowed to be pending in the outgoing queue."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "maxPendingMessagesAcrossPartitions",
+                          "displayName": "Max Pending Messages Across Partitions",
+                          "inputType": "string",
+                          "defaultValue": "",
+                          "validateType": "number",
+                          "required": "false",
+                          "helpTip": "The maximum number of pending messages across all partitions. This is useful for partitioned topics."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "hashingScheme",
+                          "displayName": "Hashing Scheme",
+                          "inputType": "combo",
+                          "defaultValue": "",
+                          "required": "false",
+                          "helpTip": "The hashing scheme used to determine the partition for a message. Supported values: JavaStringHash, Murmur3_32Hash, BoostHash.",
+                          "comboValues": [
+                            "JavaStringHash",
+                            "Murmur3_32Hash",
+                            "BoostHash"
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "messageRoutingMode",
+                          "displayName": "Message Routing Mode",
+                          "inputType": "combo",
+                          "defaultValue": "",
+                          "required": "false",
+                          "helpTip": "The message routing mode for partitioned topics. Supported values: SinglePartition, RoundRobinPartition, CustomPartition.",
+                          "comboValues": [
+                            "SinglePartition",
+                            "RoundRobinPartition",
+                            "CustomPartition"
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "cryptoFailureAction",
+                          "displayName": "Crypto Failure Action",
+                          "inputType": "combo",
+                          "defaultValue": "FAIL",
+                          "required": "false",
+                          "helpTip": "The action to take when message encryption fails. Supported values: FAIL, SEND.",
+                          "comboValues": [
+                            "FAIL",
+                            "SEND"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Input",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "key",
+                    "displayName": "Key",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "The key associated with the message, used for partition routing."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "value",
+                    "displayName": "Value",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "true",
+                    "helpTip": "The payload or content of the message to be published."
+                  }
+                },
+                {
+                  "type": "table",
+                  "value": {
+                    "name": "properties",
+                    "displayName": "Message Properties",
+                    "tableKey": "propertyName",
+                    "tableValue": "propertyValue",
+                    "addParamText": "Add Property",
+                    "helpTip": "Define named properties to be added to the message.",
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "propertyName",
+                          "displayName": "Name",
+                          "inputType": "string",
+                          "defaultValue": "",
+                          "required": "true",
+                          "helpTip": "The name of the property."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "propertyValue",
+                          "displayName": "Value",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": "true",
+                          "helpTip": "The value of the property."
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attributeGroup",
+                  "value": {
+                    "groupName": "Advanced",
+                    "isCollapsed": true,
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "sequenceId",
+                          "displayName": "Sequence ID",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": "false",
+                          "helpTip": "The custom sequence ID to assign to the message."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "deliverAfter",
+                          "displayName": "Deliver After (in milliseconds)",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": "false",
+                          "validateType": "number",
+                          "helpTip": "The delay in milliseconds after which the message will be delivered."
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Output",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "responseVariable",
+                    "displayName": "Output Variable Name",
+                    "inputType": "string",
+                    "deriveResponseVariable": "true",
+                    "required": "true",
+                    "helpTip": "Name of the variable to which the output of the operation should be assigned"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "overwriteBody",
+                    "displayName": "Overwrite Message Body",
+                    "inputType": "checkbox",
+                    "defaultValue": "false",
+                    "helpTip": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable).",
+                    "required": "false"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
