@@ -41,9 +41,9 @@
   </properties>
 
   <scm>
-    <connection>scm:git:https://github.com/wso2-extensions/esb-connector-mongodb.git</connection>
-    <url>https://github.com/wso2-extensions/esb-connector-mongodb.git</url>
-    <developerConnection>scm:git:https://github.com/wso2-extensions/esb-connector-mongodb</developerConnection>
+    <connection>scm:git:https://github.com/wso2-extensions/mi-connector-pulsar.git</connection>
+    <url>https://github.com/wso2-extensions/mi-connector-pulsar.git</url>
+    <developerConnection>scm:git:https://github.com/wso2-extensions/mi-connector-pulsar</developerConnection>
     <tag>v2.0.0</tag>
   </scm>
   <build>
