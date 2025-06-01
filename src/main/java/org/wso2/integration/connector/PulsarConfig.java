@@ -77,6 +77,14 @@ public class PulsarConfig extends AbstractConnector implements ManagedLifecycle 
             configuration.setConnectionConfig(connectionConfig);
         }
 
+        setAuthConfigToConnectionConfig(messageContext, configuration);
+
+        return configuration;
+
+    }
+
+    private void setAuthConfigToConnectionConfig(MessageContext messageContext, ConnectionConfiguration configuration)
+            throws PulsarConnectorException {
         String authType = (String) getParameter(messageContext, PulsarConstants.AUTH_TYPE);
         if (authType != null) {
             switch (authType.toUpperCase()) {
@@ -103,9 +111,6 @@ public class PulsarConfig extends AbstractConnector implements ManagedLifecycle 
                             + PulsarConstants.AUTH_NONE);
             }
         }
-
-        return configuration;
-
     }
 
     private PulsarConnectionConfig getPulsarConnectionConfigFromContext(MessageContext messageContext,
@@ -192,7 +197,7 @@ public class PulsarConfig extends AbstractConnector implements ManagedLifecycle 
             JsonUtil.getNewJsonPayload(((Axis2MessageContext)msgCtx).getAxis2MessageContext(), resultJSON.toString(),
                     false, false);
         } catch (AxisFault axisFault) {
-            log.error("Error while setting the error payload", axisFault);
+            log.error("Error while setting the error payload.", axisFault);
         }
         handleException(errorDetail, e, msgCtx);
     }

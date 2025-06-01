@@ -245,6 +245,8 @@ public class PulsarProducer extends AbstractConnectorOperation {
 
     /**
      * Get the messages from the message context and format the messages.
+     *
+     * @param messageContext Message Context
      */
     private String getMessage(MessageContext messageContext) throws AxisFault {
 
@@ -254,7 +256,7 @@ public class PulsarProducer extends AbstractConnectorOperation {
     }
 
     /**
-     * Format the messages when the messages are sent to the Apache Pulsar broker
+     * Format the messages when the messages are sent to the Apache Pulsar broker.
      *
      * @param messageContext Message Context
      * @return formatted message

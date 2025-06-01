@@ -28,6 +28,103 @@
           {
             "type": "attributeGroup",
             "value": {
+              "groupName": "Input",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "value",
+                    "displayName": "Message",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "true",
+                    "helpTip": "The payload or content of the message to be published."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "key",
+                    "displayName": "Key",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "The key associated with the message, used for partition routing."
+                  }
+                },
+                {
+                  "type": "table",
+                  "value": {
+                    "name": "properties",
+                    "displayName": "Message Properties",
+                    "tableKey": "propertyName",
+                    "tableValue": "propertyValue",
+                    "addParamText": "Add Property",
+                    "helpTip": "Define named properties to be added to the message.",
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "propertyName",
+                          "displayName": "Name",
+                          "inputType": "string",
+                          "defaultValue": "",
+                          "required": "true",
+                          "helpTip": "The name of the property."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "propertyValue",
+                          "displayName": "Value",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": "true",
+                          "helpTip": "The value of the property."
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attributeGroup",
+                  "value": {
+                    "groupName": "Advanced",
+                    "isCollapsed": true,
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "sequenceId",
+                          "displayName": "Sequence ID",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": "false",
+                          "helpTip": "The custom sequence ID to assign to the message."
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "deliverAfter",
+                          "displayName": "Deliver After (in milliseconds)",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": "false",
+                          "validateType": "number",
+                          "helpTip": "The delay in milliseconds after which the message will be delivered."
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
               "groupName": "Producer Settings",
               "elements": [
                 {
@@ -108,7 +205,7 @@
                     "name": "batchingMaxBytes",
                     "displayName": "Batching Max Size (in Bytes)",
                     "inputType": "string",
-                    "defaultValue": "",
+                    "defaultValue": "131072",
                     "required": "false",
                     "validateType": "number",
                     "helpTip": "The maximum size of a batch in bytes",
@@ -178,7 +275,7 @@
                         "type": "attribute",
                         "value": {
                           "name": "sendTimeoutMs",
-                          "displayName": "Send Timeout (ms)",
+                          "displayName": "Send Timeout (in milliseconds)",
                           "inputType": "string",
                           "defaultValue": "",
                           "validateType": "number",
@@ -227,7 +324,7 @@
                           "name": "hashingScheme",
                           "displayName": "Hashing Scheme",
                           "inputType": "combo",
-                          "defaultValue": "",
+                          "defaultValue": "JavaStringHash",
                           "required": "false",
                           "helpTip": "The hashing scheme used to determine the partition for a message. Supported values: JavaStringHash, Murmur3_32Hash, BoostHash.",
                           "comboValues": [
@@ -243,7 +340,7 @@
                           "name": "messageRoutingMode",
                           "displayName": "Message Routing Mode",
                           "inputType": "combo",
-                          "defaultValue": "",
+                          "defaultValue": "RoundRobinPartition",
                           "required": "false",
                           "helpTip": "The message routing mode for partitioned topics. Supported values: SinglePartition, RoundRobinPartition, CustomPartition.",
                           "comboValues": [
@@ -266,103 +363,6 @@
                             "FAIL",
                             "SEND"
                           ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "type": "attributeGroup",
-            "value": {
-              "groupName": "Input",
-              "elements": [
-                {
-                  "type": "attribute",
-                  "value": {
-                    "name": "key",
-                    "displayName": "Key",
-                    "inputType": "stringOrExpression",
-                    "defaultValue": "",
-                    "required": "false",
-                    "helpTip": "The key associated with the message, used for partition routing."
-                  }
-                },
-                {
-                  "type": "attribute",
-                  "value": {
-                    "name": "value",
-                    "displayName": "Value",
-                    "inputType": "stringOrExpression",
-                    "defaultValue": "",
-                    "required": "true",
-                    "helpTip": "The payload or content of the message to be published."
-                  }
-                },
-                {
-                  "type": "table",
-                  "value": {
-                    "name": "properties",
-                    "displayName": "Message Properties",
-                    "tableKey": "propertyName",
-                    "tableValue": "propertyValue",
-                    "addParamText": "Add Property",
-                    "helpTip": "Define named properties to be added to the message.",
-                    "elements": [
-                      {
-                        "type": "attribute",
-                        "value": {
-                          "name": "propertyName",
-                          "displayName": "Name",
-                          "inputType": "string",
-                          "defaultValue": "",
-                          "required": "true",
-                          "helpTip": "The name of the property."
-                        }
-                      },
-                      {
-                        "type": "attribute",
-                        "value": {
-                          "name": "propertyValue",
-                          "displayName": "Value",
-                          "inputType": "stringOrExpression",
-                          "defaultValue": "",
-                          "required": "true",
-                          "helpTip": "The value of the property."
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "attributeGroup",
-                  "value": {
-                    "groupName": "Advanced",
-                    "isCollapsed": true,
-                    "elements": [
-                      {
-                        "type": "attribute",
-                        "value": {
-                          "name": "sequenceId",
-                          "displayName": "Sequence ID",
-                          "inputType": "stringOrExpression",
-                          "defaultValue": "",
-                          "required": "false",
-                          "helpTip": "The custom sequence ID to assign to the message."
-                        }
-                      },
-                      {
-                        "type": "attribute",
-                        "value": {
-                          "name": "deliverAfter",
-                          "displayName": "Deliver After (in milliseconds)",
-                          "inputType": "stringOrExpression",
-                          "defaultValue": "",
-                          "required": "false",
-                          "validateType": "number",
-                          "helpTip": "The delay in milliseconds after which the message will be delivered."
                         }
                       }
                     ]

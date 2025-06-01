@@ -28,7 +28,7 @@
               "displayName": "Broker URL",
               "inputType": "stringOrExpression",
               "required": "true",
-              "defaultValue": "pulsar://",
+              "defaultValue": "pulsar://localhost:6650/",
               "matchPattern": "^pulsar://",
               "helpTip": "The Pulsar service URL to connect to (e.g., pulsar://localhost:6650)."
             }
