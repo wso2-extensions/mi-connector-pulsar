@@ -126,7 +126,7 @@ public class PulsarProducer extends AbstractConnectorOperation {
             producerConfig.put(PulsarConstants.CHUNK_MAX_MESSAGE_SIZE, chunkMaxMessageSize);
             producerConfig.put(PulsarConstants.CRYPTO_FAILURE_ACTION, cryptoFailureAction);
 
-            Producer<String> producer = getProducer(topicName, producerConfig, pulsarClient);
+            Producer<String> producer = getProducer(topicName, producerConfig, pulsarClient, pulsarConnection);
             TypedMessageBuilder<String> messageBuilder = producer.newMessage();
             getMessagePropertiesFromMessageContextAndConstructMessageBuilder(messageBuilder, messageContext);
 
@@ -283,10 +283,11 @@ public class PulsarProducer extends AbstractConnectorOperation {
         return stringWriter.toString();
     }
 
-    private Producer<String> getProducer(String topic, Map<String, String> config, PulsarClient client) {
+    private Producer<String> getProducer(String topic, Map<String, String> config, PulsarClient client,
+                                         PulsarConnection connection) {
         ProducerKey key = new ProducerKey(topic, config);
 
-        return producerCache.computeIfAbsent(key, k -> {
+        return connection.getProducerCache().computeIfAbsent(key, k -> {
             try {
                 ProducerBuilder<String> builder = client.newProducer(Schema.STRING)
                         .topic(topic);
@@ -371,5 +372,4 @@ public class PulsarProducer extends AbstractConnectorOperation {
         }
         return connectionName;
     }
-
 }
