@@ -294,7 +294,7 @@ public class PulsarProducer extends AbstractConnectorOperation {
                 applyProducerConfig(builder, config);
                 return builder.create();
             } catch (PulsarClientException | PulsarConnectorException e) {
-                throw new SynapseException("Failed to create Apache Pulsar Producer", e);
+                throw new SynapseException("Failed to create Apache Pulsar Producer! " + e.getMessage(), e);
             }
         });
     }
