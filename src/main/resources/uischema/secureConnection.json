@@ -28,9 +28,9 @@
               "displayName": "Broker URL",
               "inputType": "stringOrExpression",
               "required": "true",
-              "defaultValue": "pulsar+ssl://",
+              "defaultValue": "pulsar+ssl://localhost:6651/",
               "matchPattern": "^pulsar\\+ssl://",
-              "helpTip": "The Pulsar service URL to connect to (e.g., pulsar://localhost:6650)."
+              "helpTip": "The Pulsar service URL to connect to (e.g., pulsar+ssl://localhost:6651/)."
             }
           }
         ]
@@ -164,7 +164,6 @@
               "displayName": "TLS Protocols",
               "inputType": "stringOrExpression",
               "defaultValue": "",
-              "placeholder": "TLSv1.2,TLSv1.3",
               "required": "false",
               "helpTip": "Comma-separated list of enabled TLS protocols (e.g., TLSv1.2,TLSv1.3).",
               "enableCondition": [
@@ -182,8 +181,7 @@
               "inputType": "stringOrExpression",
               "defaultValue": "",
               "required": "false",
-              "helpTip": "Comma-separated list of enabled TLS cipher suites.",
-              "placeholder": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+              "helpTip": "Comma-separated list of enabled TLS cipher suites. (e.g., TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256)",
               "enableCondition": [
                 {
                   "tlsAllowInsecureConnection": "false"

@@ -50,7 +50,7 @@ public class PulsarConstants {
     public static final String MAX_NUMBER_OF_REJECTED_REQUEST_PER_CONNECTION = "maxNumberOfRejectedRequestPerConnection";
     public static final String MEMORY_LIMIT_BYTES = "memoryLimitBytes";
 
-
+    // Pulsar secure connection parameter constants
     public static final String TLS_TRUST_CERTS_FILE_PATH = "tlsTrustCertsFilePath";
     public static final String TLS_ALLOW_INSECURE_CONNECTION = "tlsAllowInsecureConnection";
     public static final String TLS_HOSTNAME_VERIFICATION_ENABLE = "tlsHostnameVerificationEnable";
@@ -67,6 +67,7 @@ public class PulsarConstants {
     public static final String TLS_KEY_STORE_PATH = "tlsKeyStorePath";
     public static final String TLS_KEY_STORE_PASSWORD = "tlsKeyStorePassword";
 
+    // Pulsar authentication parameter constants
     public static final String AUTH_TYPE = "authorizationType";
     public static final String AUTH_JWT = "JWT";
     public static final String AUTH_TLS = "TLS";
@@ -76,10 +77,9 @@ public class PulsarConstants {
     public static final String AUTH_PARAMS = "authParams";
     public static final String AUTH_PLUGIN_CLASS_NAME = "authPluginClassName";
     public static final String AUTO_CERT_REFRESH_SECONDS = "autoCertRefreshSeconds";
-
     public static final String JWT_TOKEN = "jwtToken";
 
-    // Pulsar producer configuration parameter constants
+    // Pulsar producer configuration constants
     public static final String PRODUCER_TOPIC_NAME = "topicName";
     public static final String PRODUCER_NAME = "producerName";
     public static final String SEND_TIMEOUT_MS = "sendTimeoutMs";
@@ -97,9 +97,9 @@ public class PulsarConstants {
     public static final String CHUNK_MAX_MESSAGE_SIZE = "chunkMaxMessageSize";
     public static final String CRYPTO_FAILURE_ACTION = "cryptoFailureAction";
 
+    // Pulsar message configuration constants
     public static final String KEY = "key";
     public static final String VALUE = "value";
-    public static final String EVENT_TIME = "eventTime";
     public static final String SEQUENCE_ID = "sequenceId";
     public static final String DELIVER_AFTER = "deliverAfter";
     public static final String PROPERTIES = "properties";

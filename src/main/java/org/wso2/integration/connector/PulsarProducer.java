@@ -126,7 +126,7 @@ public class PulsarProducer extends AbstractConnectorOperation {
             producerConfig.put(PulsarConstants.CHUNK_MAX_MESSAGE_SIZE, chunkMaxMessageSize);
             producerConfig.put(PulsarConstants.CRYPTO_FAILURE_ACTION, cryptoFailureAction);
 
-            Producer<String> producer = getProducer(topicName, producerConfig, pulsarClient);
+            Producer<String> producer = getProducer(topicName, producerConfig, pulsarClient, pulsarConnection);
             TypedMessageBuilder<String> messageBuilder = producer.newMessage();
             getMessagePropertiesFromMessageContextAndConstructMessageBuilder(messageBuilder, messageContext);
 
@@ -245,6 +245,8 @@ public class PulsarProducer extends AbstractConnectorOperation {
 
     /**
      * Get the messages from the message context and format the messages.
+     *
+     * @param messageContext Message Context
      */
     private String getMessage(MessageContext messageContext) throws AxisFault {
 
@@ -254,7 +256,7 @@ public class PulsarProducer extends AbstractConnectorOperation {
     }
 
     /**
-     * Format the messages when the messages are sent to the Apache Pulsar broker
+     * Format the messages when the messages are sent to the Apache Pulsar broker.
      *
      * @param messageContext Message Context
      * @return formatted message
@@ -281,17 +283,18 @@ public class PulsarProducer extends AbstractConnectorOperation {
         return stringWriter.toString();
     }
 
-    private Producer<String> getProducer(String topic, Map<String, String> config, PulsarClient client) {
+    private Producer<String> getProducer(String topic, Map<String, String> config, PulsarClient client,
+                                         PulsarConnection connection) {
         ProducerKey key = new ProducerKey(topic, config);
 
-        return producerCache.computeIfAbsent(key, k -> {
+        return connection.getProducerCache().computeIfAbsent(key, k -> {
             try {
                 ProducerBuilder<String> builder = client.newProducer(Schema.STRING)
                         .topic(topic);
                 applyProducerConfig(builder, config);
                 return builder.create();
             } catch (PulsarClientException | PulsarConnectorException e) {
-                throw new SynapseException("Failed to create Apache Pulsar Producer", e);
+                throw new SynapseException("Failed to create Apache Pulsar Producer! " + e.getMessage(), e);
             }
         });
     }
@@ -369,5 +372,4 @@ public class PulsarProducer extends AbstractConnectorOperation {
         }
         return connectionName;
     }
-
 }
