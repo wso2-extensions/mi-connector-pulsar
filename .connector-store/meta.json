@@ -16,6 +16,35 @@
     ],
     "releases": [
         {
+            "tagName": "v0.9.1",
+            "products": [
+                "MI 4.4.0"
+            ],
+            "operations": [
+                {
+                    "name": "init",
+                    "description": "Configure the Apache Pulsar Client Connection",
+                    "isHidden": true
+                },
+                {
+                    "name": "publishMessage",
+                    "description": "Publish message to the Apache Pulsar cluster",
+                    "isHidden": false
+                }
+            ],
+            "connections": [
+                {
+                    "name": "pulsar",
+                    "description": "Connection for a Apache Pulsar cluster."
+                },
+                {
+                    "name": "pulsarsecure",
+                    "description": "Secure Connection for a Apache Pulsar cluster."
+                }
+            ],
+            "isHidden": false
+        },
+        {
             "tagName": "v0.9.0",
             "products": [
                 "MI 4.4.0"
