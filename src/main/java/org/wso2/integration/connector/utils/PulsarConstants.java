@@ -68,7 +68,7 @@ public class PulsarConstants {
     public static final String TLS_KEY_STORE_PASSWORD = "tlsKeyStorePassword";
 
     // Pulsar authentication parameter constants
-    public static final String AUTH_TYPE = "authorizationType";
+    public static final String AUTH_TYPE = "authenticationType";
     public static final String AUTH_JWT = "JWT";
     public static final String AUTH_TLS = "TLS";
     public static final String AUTH_OAUTH2 = "OAUTH2";

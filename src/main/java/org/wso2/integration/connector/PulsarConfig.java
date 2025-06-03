@@ -50,7 +50,13 @@ public class PulsarConfig extends AbstractConnector implements ManagedLifecycle 
             if (!handler.checkIfConnectionExists(PulsarConstants.CONNECTOR_NAME, connectionName)) {
                 ConnectionConfiguration configuration = getConnectionConfigFromContext(messageContext);
                 PulsarConnection pulsarConnection = new PulsarConnection(configuration);
-                handler.createConnection(PulsarConstants.CONNECTOR_NAME, connectionName, pulsarConnection);
+                try {
+                    handler.createConnection(PulsarConstants.CONNECTOR_NAME, connectionName, pulsarConnection,
+                            messageContext);
+                } catch (NoSuchMethodError e) {
+                    handler.createConnection(PulsarConstants.CONNECTOR_NAME, connectionName, pulsarConnection);
+                }
+
             }
         } catch (PulsarConnectorException e) {
             String errorDetail = "[" + connectionName + "] Failed to initiate Pulsar connector configuration.";

@@ -22,7 +22,7 @@
         <component name="publishMessage">
             <file>pulsarProduceTemplate.xml</file>
             <displayName>Publish Message</displayName>
-            <description>Send the messages to the Apache Pulsar brokers</description>
+            <description>Send messages to the Apache Pulsar brokers</description>
         </component>
     </subComponents>
 </component>

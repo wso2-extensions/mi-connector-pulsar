@@ -39,18 +39,18 @@
     {
       "type": "attributeGroup",
       "value": {
-        "groupName": "Authorization",
+        "groupName": "Authentication",
         "isCollapsed": false,
         "elements": [
           {
             "type": "attribute",
             "value": {
-              "name": "authorizationType",
-              "displayName": "Authorization Type",
+              "name": "authenticationType",
+              "displayName": "Authentication Type",
               "inputType": "combo",
               "defaultValue": "None",
               "required": "false",
-              "helpTip": "The authorization mechanism to use for authenticating with Pulsar. Supported values: None, JWT, TLS, OAuth2.",
+              "helpTip": "The authentication mechanism to use for authenticating with Pulsar. Supported values: None, JWT, TLS, OAuth2.",
               "comboValues": [
                 "None",
                 "JWT"
@@ -96,15 +96,35 @@
           {
             "type": "attribute",
             "value": {
+              "name": "useKeyStoreTls",
+              "displayName": "Use KeyStore TLS",
+              "inputType": "boolean",
+              "defaultValue": "false",
+              "required": "false",
+              "helpTip": "Enable TLS using a Java KeyStore.",
+              "enableCondition": [
+                {
+                  "tlsAllowInsecureConnection": "false"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
               "name": "tlsTrustCertsFilePath",
               "displayName": "Broker CA Certificate Path",
               "inputType": "stringOrExpression",
               "defaultValue": "",
-              "required": "false",
+              "required": "true",
               "helpTip": "Path to the trusted TLS certificate file.",
               "enableCondition": [
+                "AND",
                 {
                   "tlsAllowInsecureConnection": "false"
+                },
+                {
+                  "useKeyStoreTls": "false"
                 }
               ]
             }
@@ -116,11 +136,15 @@
               "displayName": "TLS TrustStore Path",
               "inputType": "stringOrExpression",
               "defaultValue": "",
-              "required": "false",
+              "required": "true",
               "helpTip": "Path to the TLS trust store file.",
               "enableCondition": [
+                "AND",
                 {
                   "tlsAllowInsecureConnection": "false"
+                },
+                {
+                  "useKeyStoreTls": "true"
                 }
               ]
             }
@@ -132,11 +156,15 @@
               "displayName": "TLS TrustStore Type",
               "inputType": "stringOrExpression",
               "defaultValue": "",
-              "required": "false",
+              "required": "true",
               "helpTip": "Type of the TLS trust store (e.g., JKS, PKCS12).",
               "enableCondition": [
+                "AND",
                 {
                   "tlsAllowInsecureConnection": "false"
+                },
+                {
+                  "useKeyStoreTls": "true"
                 }
               ]
             }
@@ -148,11 +176,15 @@
               "displayName": "TLS TrustStore Password",
               "inputType": "stringOrExpression",
               "defaultValue": "",
-              "required": "false",
+              "required": "true",
               "helpTip": "Password for the TLS trust store.",
               "enableCondition": [
+                "AND",
                 {
                   "tlsAllowInsecureConnection": "false"
+                },
+                {
+                  "useKeyStoreTls": "true"
                 }
               ]
             }
@@ -215,22 +247,6 @@
               "defaultValue": "",
               "required": "false",
               "helpTip": "Enable hostname verification for TLS connections.",
-              "enableCondition": [
-                {
-                  "tlsAllowInsecureConnection": "false"
-                }
-              ]
-            }
-          },
-          {
-            "type": "attribute",
-            "value": {
-              "name": "useKeyStoreTls",
-              "displayName": "Use KeyStore TLS",
-              "inputType": "boolean",
-              "defaultValue": "",
-              "required": "false",
-              "helpTip": "Enable TLS using a Java KeyStore.",
               "enableCondition": [
                 {
                   "tlsAllowInsecureConnection": "false"
