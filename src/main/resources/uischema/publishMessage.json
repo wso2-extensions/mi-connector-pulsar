@@ -132,7 +132,7 @@
                   "value": {
                     "name": "topicName",
                     "displayName": "Topic Name",
-                    "inputType": "string",
+                    "inputType": "stringOrExpression",
                     "defaultValue": "",
                     "required": "true",
                     "helpTip": "The name of the Pulsar topic to which messages will be published."
@@ -164,7 +164,7 @@
                     "inputType": "combo",
                     "defaultValue": "Sync",
                     "required": "false",
-                    "helpTip": "Whether chunking is enabled for large messages. If enabled, large messages are split into smaller chunks.",
+                    "helpTip": "Whether to send the message synchronously or asynchronously. In synchronous mode, the operation waits for the message to be acknowledged by the broker. In asynchronous mode, the operation returns immediately.",
                     "comboValues": [
                       "Sync",
                       "Async"
