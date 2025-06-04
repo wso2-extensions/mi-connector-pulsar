@@ -63,7 +63,7 @@
     <parameter name="tlsKeyStorePath" description="Path to the TLS key store."/>
     <parameter name="tlsKeyStorePassword" description="Password for the TLS key store."/>
     <parameter name="autoCertRefreshSeconds" description="Interval for automatic certificate refresh (in seconds)."/>
-    <parameter name="authorizationType" description="Type of authorization (e.g., JWT, TLS, OAUTH2, NONE)."/>
+    <parameter name="authenticationType" description="Type of authentication (e.g., JWT, TLS, OAUTH2, NONE)."/>
     <parameter name="authParamMap" description="Map of authentication parameters."/>
     <parameter name="authParams" description="Authentication parameters string."/>
     <parameter name="authPluginClassName" description="Class name of the authentication plugin."/>
@@ -114,7 +114,7 @@
         <property expression="$func:tlsCiphers" name="pulsar.tlsCiphers"/>
         <property expression="$func:tlsProtocols" name="pulsar.tlsProtocols"/>
         <property expression="$func:useTLS" name="pulsar.useTLS"/>
-        <property expression="$func:authorizationType" name="pulsar.authorizationType"/>
+        <property expression="$func:authenticationType" name="pulsar.authenticationType"/>
         <property expression="$func:jwtToken" name="pulsar.jwtToken"/>
         <property expression="$func:authParamMap" name="pulsar.authParamMap"/>
         <property expression="$func:authParams" name="pulsar.authParams"/>

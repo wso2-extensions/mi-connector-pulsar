@@ -68,7 +68,7 @@
               "helpTip": "The JSON Web Token (JWT) used for authenticating with the Pulsar broker.",
               "enableCondition": [
                 {
-                  "authorizationType": "JWT"
+                  "authenticationType": "JWT"
                 }
               ]
             }
