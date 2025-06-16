@@ -349,21 +349,6 @@
                             "CustomPartition"
                           ]
                         }
-                      },
-                      {
-                        "type": "attribute",
-                        "value": {
-                          "name": "cryptoFailureAction",
-                          "displayName": "Crypto Failure Action",
-                          "inputType": "combo",
-                          "defaultValue": "FAIL",
-                          "required": "false",
-                          "helpTip": "The action to take when message encryption fails. Supported values: FAIL, SEND.",
-                          "comboValues": [
-                            "FAIL",
-                            "SEND"
-                          ]
-                        }
                       }
                     ]
                   }
