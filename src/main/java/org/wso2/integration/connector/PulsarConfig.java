@@ -181,8 +181,6 @@ public class PulsarConfig extends AbstractConnector implements ManagedLifecycle 
         config.setTlsTrustStorePassword((String) getParameter(messageContext,
                 PulsarConstants.TLS_TRUST_STORE_PASSWORD));
         config.setTlsTrustStoreType((String) getParameter(messageContext, PulsarConstants.TLS_TRUST_STORE_TYPE));
-        config.setAutoCertRefreshSeconds((String) getParameter(messageContext,
-                PulsarConstants.AUTO_CERT_REFRESH_SECONDS));
 
         return config;
     }

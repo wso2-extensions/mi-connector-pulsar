@@ -34,7 +34,6 @@ public class PulsarSecureConnectionConfig extends PulsarConnectionConfig {
     private String tlsTrustStorePath;
     private String tlsTrustStorePassword;
     private String tlsTrustStoreType;
-    private Integer autoCertRefreshSeconds;
 
     public Boolean useTls() {
         return useTls;
@@ -137,16 +136,6 @@ public class PulsarSecureConnectionConfig extends PulsarConnectionConfig {
     public void setTlsTrustStoreType(String tlsTrustStoreType) {
         if (StringUtils.isNotEmpty(tlsTrustStoreType)) {
             this.tlsTrustStoreType = tlsTrustStoreType;
-        }
-    }
-
-    public Integer getAutoCertRefreshSeconds() {
-        return autoCertRefreshSeconds;
-    }
-
-    public void setAutoCertRefreshSeconds(String autoCertRefreshSeconds) {
-        if (StringUtils.isNotEmpty(autoCertRefreshSeconds)) {
-            this.autoCertRefreshSeconds = Integer.parseInt(autoCertRefreshSeconds);
         }
     }
 

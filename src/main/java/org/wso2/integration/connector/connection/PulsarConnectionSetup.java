@@ -87,9 +87,6 @@ public class PulsarConnectionSetup {
         if (secureConfig.getTlsTrustStoreType() != null) {
             clientBuilder.tlsTrustStoreType(secureConfig.getTlsTrustStoreType());
         }
-        if (secureConfig.getAutoCertRefreshSeconds() != null) {
-            clientBuilder.autoCertRefreshSeconds(secureConfig.getAutoCertRefreshSeconds());
-        }
 
         return clientBuilder;
     }
