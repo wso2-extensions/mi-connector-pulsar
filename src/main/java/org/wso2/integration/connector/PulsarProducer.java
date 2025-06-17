@@ -34,7 +34,6 @@ import org.apache.pulsar.client.api.MessageId;
 import org.apache.pulsar.client.api.MessageRoutingMode;
 import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.ProducerBuilder;
-import org.apache.pulsar.client.api.ProducerCryptoFailureAction;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.api.PulsarClientException;
 import org.apache.pulsar.client.api.Schema;
@@ -42,6 +41,8 @@ import org.apache.pulsar.client.api.TypedMessageBuilder;
 import org.apache.synapse.MessageContext;
 import org.apache.synapse.SynapseException;
 import org.apache.synapse.core.axis2.Axis2MessageContext;
+import org.apache.synapse.util.InlineExpressionUtil;
+import org.jaxen.JaxenException;
 import org.wso2.integration.connector.connection.PulsarConnection;
 import org.wso2.integration.connector.core.AbstractConnectorOperation;
 import org.wso2.integration.connector.core.connection.ConnectionHandler;
@@ -100,8 +101,6 @@ public class PulsarProducer extends AbstractConnectorOperation {
                     PulsarConstants.MESSAGE_ROUTING_MODE);
             String chunkingEnabled = (String) ConnectorUtils.lookupTemplateParamater(messageContext,
                     PulsarConstants.CHUNKING_ENABLED);
-            String cryptoFailureAction = (String) ConnectorUtils.lookupTemplateParamater(messageContext,
-                    PulsarConstants.CRYPTO_FAILURE_ACTION);
             String chunkMaxMessageSize = (String) ConnectorUtils.lookupTemplateParamater(messageContext,
                     PulsarConstants.CHUNK_MAX_MESSAGE_SIZE);
             String batchingMaxBytes = (String) ConnectorUtils.lookupTemplateParamater(messageContext,
@@ -124,11 +123,10 @@ public class PulsarProducer extends AbstractConnectorOperation {
             producerConfig.put(PulsarConstants.MESSAGE_ROUTING_MODE, messageRoutingMode);
             producerConfig.put(PulsarConstants.CHUNKING_ENABLED, chunkingEnabled);
             producerConfig.put(PulsarConstants.CHUNK_MAX_MESSAGE_SIZE, chunkMaxMessageSize);
-            producerConfig.put(PulsarConstants.CRYPTO_FAILURE_ACTION, cryptoFailureAction);
 
             Producer<String> producer = getProducer(topicName, producerConfig, pulsarClient, pulsarConnection);
             TypedMessageBuilder<String> messageBuilder = producer.newMessage();
-            getMessagePropertiesFromMessageContextAndConstructMessageBuilder(messageBuilder, messageContext);
+            populateMessageBuilderFromMessageContext(messageBuilder, messageContext);
 
             // Send the message
             if (sendMode != null && sendMode.equalsIgnoreCase(PulsarConstants.ASYNC)) {
@@ -177,7 +175,7 @@ public class PulsarProducer extends AbstractConnectorOperation {
         handleException(errorDetail, e, msgCtx);
     }
 
-    private void getMessagePropertiesFromMessageContextAndConstructMessageBuilder(
+    private void populateMessageBuilderFromMessageContext(
             TypedMessageBuilder<String> messageBuilder, MessageContext messageContext) throws PulsarConnectorException {
         String key = (String) ConnectorUtils.lookupTemplateParamater(messageContext, PulsarConstants.KEY);
         if (key != null) {
@@ -195,8 +193,37 @@ public class PulsarProducer extends AbstractConnectorOperation {
             messageBuilder.deliverAfter(Long.parseLong(deliverAfter), TimeUnit.MILLISECONDS);
         }
 
+        messageBuilder.eventTime(System.currentTimeMillis());
+
+        String value = (String) ConnectorUtils.lookupTemplateParamater(messageContext, PulsarConstants.VALUE);
+        if (value != null) {
+            messageBuilder.value(value);
+        } else {
+            try {
+                value = getMessage(messageContext);
+                messageBuilder.value(value);
+            } catch (AxisFault e) {
+                throw new PulsarConnectorException("Cannot obtain the message from the message context", e);
+            }
+        }
+
+        addMessageProperties(messageContext, messageBuilder);
+
+    }
+
+    private void addMessageProperties(MessageContext messageContext, TypedMessageBuilder<String> messageBuilder)
+            throws PulsarConnectorException {
         String properties = (String) ConnectorUtils.lookupTemplateParamater(messageContext, PulsarConstants.PROPERTIES);
-        if (properties != null) {
+        if (properties != null && !properties.isEmpty()) {
+
+            try {
+                properties = InlineExpressionUtil.processInLineSynapseExpressionTemplate(messageContext, properties)
+                        .trim();
+            } catch (JaxenException e) {
+                throw new PulsarConnectorException("Error occurred while processing inline expressions "
+                        + "in message properties.", e);
+            }
+
             ObjectMapper mapper = new ObjectMapper();
             try {
                 JsonNode jsonArray = mapper.readTree(properties);
@@ -226,21 +253,6 @@ public class PulsarProducer extends AbstractConnectorOperation {
                         + " where each object represents a property as a key-value pair. Received : " + properties, e);
             }
         }
-
-        messageBuilder.eventTime(System.currentTimeMillis());
-
-        String value = (String) ConnectorUtils.lookupTemplateParamater(messageContext, PulsarConstants.VALUE);
-        if (value != null) {
-            messageBuilder.value(value);
-        } else {
-            try {
-                value = getMessage(messageContext);
-                messageBuilder.value(value);
-            } catch (AxisFault e) {
-                throw new PulsarConnectorException("Cannot obtain the message from the message context", e);
-            }
-        }
-
     }
 
     /**
@@ -356,10 +368,6 @@ public class PulsarProducer extends AbstractConnectorOperation {
         }
         if (config.get(PulsarConstants.CHUNK_MAX_MESSAGE_SIZE) != null) {
             builder.chunkMaxMessageSize(Integer.parseInt(config.get(PulsarConstants.CHUNK_MAX_MESSAGE_SIZE)));
-        }
-        if (config.get(PulsarConstants.CRYPTO_FAILURE_ACTION) != null) {
-            builder.cryptoFailureAction(
-                    ProducerCryptoFailureAction.valueOf(config.get(PulsarConstants.CRYPTO_FAILURE_ACTION)));
         }
     }
 

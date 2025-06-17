@@ -32,7 +32,6 @@
     <parameter name="maxPendingMessagesAcrossPartitions" description="The maximum number of pending messages across all partitions. This is useful for partitioned topics."/>
     <parameter name="hashingScheme" description="The hashing scheme used to determine the partition for a message. Supported values: JavaStringHash, Murmur3_32Hash, BoostHash."/>
     <parameter name="messageRoutingMode" description="The message routing mode for partitioned topics. Supported values: SinglePartition, RoundRobinPartition, CustomPartition."/>
-    <parameter name="cryptoFailureAction" description="The action to take when message encryption fails. Supported values: FAIL, SEND."/>
     <parameter name="key" description="The key associated with the message for partitioning or routing."/>
     <parameter name="value" description="The value or payload of the message to be published."/>
     <parameter name="properties" description="Custom properties to attach to the message as key-value pairs."/>

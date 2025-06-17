@@ -76,7 +76,6 @@ public class PulsarConstants {
     public static final String AUTH_PARAM_MAP = "authParamMap";
     public static final String AUTH_PARAMS = "authParams";
     public static final String AUTH_PLUGIN_CLASS_NAME = "authPluginClassName";
-    public static final String AUTO_CERT_REFRESH_SECONDS = "autoCertRefreshSeconds";
     public static final String JWT_TOKEN = "jwtToken";
 
     // Pulsar producer configuration constants
@@ -95,7 +94,6 @@ public class PulsarConstants {
     public static final String MESSAGE_ROUTING_MODE = "messageRoutingMode";
     public static final String CHUNKING_ENABLED = "chunkingEnabled";
     public static final String CHUNK_MAX_MESSAGE_SIZE = "chunkMaxMessageSize";
-    public static final String CRYPTO_FAILURE_ACTION = "cryptoFailureAction";
 
     // Pulsar message configuration constants
     public static final String KEY = "key";

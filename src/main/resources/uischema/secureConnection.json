@@ -224,23 +224,6 @@
           {
             "type": "attribute",
             "value": {
-              "name": "autoCertRefreshSeconds",
-              "displayName": "Auto Certificate Refresh Interval (in seconds)",
-              "inputType": "stringOrExpression",
-              "validateType": "number",
-              "defaultValue": "",
-              "required": "false",
-              "helpTip": "Interval in seconds to automatically refresh TLS certificates.",
-              "enableCondition": [
-                {
-                  "tlsAllowInsecureConnection": "false"
-                }
-              ]
-            }
-          },
-          {
-            "type": "attribute",
-            "value": {
               "name": "enableTlsHostnameVerification",
               "displayName": "Enable TLS Hostname Verification",
               "inputType": "boolean",

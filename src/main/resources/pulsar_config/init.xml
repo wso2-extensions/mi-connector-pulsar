@@ -26,7 +26,6 @@
     <parameter name="numListenerThreads" description="Number of listener threads for Pulsar client."/>
     <parameter name="useTcpNoDelay" description="Enable TCP no delay for network connections."/>
     <parameter name="requestTimeoutMs" description="Timeout for requests (in milliseconds)."/>
-    <parameter name="maxLookupRequests" description="Maximum number of lookup requests allowed on each broker connection."/>
     <parameter name="maxConcurrentLookupRequests" description="Maximum number of concurrent lookup requests allowed on each broker connection."/>
     <parameter name="maxRejectedRequestsPerConnection" description="Maximum number of rejected requests per connection."/>
     <parameter name="keepAliveIntervalSeconds" description="Keep-alive interval for broker connections (in seconds)."/>
@@ -44,7 +43,7 @@
     <parameter name="listenerName" description="Listener name for the Pulsar client."/>
     <parameter name="lookupTimeoutMs" description="Timeout for lookup requests (in milliseconds)."/>
     <parameter name="maxLookupRedirects" description="Maximum number of lookup redirects allowed."/>
-    <parameter name="maxLookupRequest" description="Maximum number of lookup requests."/>
+    <parameter name="maxLookupRequest" description="Maximum number of lookup requests allowed on each broker connection to prevent overloading a broker."/>
     <parameter name="maxNumberOfRejectedRequestPerConnection" description="Maximum number of rejected requests per connection."/>
     <parameter name="memoryLimitBytes" description="Memory limit for Pulsar client (in bytes)."/>
     <parameter name="tlsTrustCertsFilePath" description="Path to the TLS trust certificates file."/>
@@ -62,7 +61,6 @@
     <parameter name="tlsKeyStoreType" description="Type of the TLS key store."/>
     <parameter name="tlsKeyStorePath" description="Path to the TLS key store."/>
     <parameter name="tlsKeyStorePassword" description="Password for the TLS key store."/>
-    <parameter name="autoCertRefreshSeconds" description="Interval for automatic certificate refresh (in seconds)."/>
     <parameter name="authenticationType" description="Type of authentication (e.g., JWT, TLS, OAUTH2, NONE)."/>
     <parameter name="authParamMap" description="Map of authentication parameters."/>
     <parameter name="authParams" description="Authentication parameters string."/>
@@ -78,7 +76,6 @@
         <property expression="$func:numListenerThreads" name="pulsar.numListenerThreads"/>
         <property expression="$func:useTcpNoDelay" name="pulsar.useTcpNoDelay"/>
         <property expression="$func:requestTimeoutMs" name="pulsar.requestTimeoutMs"/>
-        <property expression="$func:maxLookupRequests" name="pulsar.maxLookupRequests"/>
         <property expression="$func:maxConcurrentLookupRequests" name="pulsar.maxConcurrentLookupRequests"/>
         <property expression="$func:maxRejectedRequestsPerConnection" name="pulsar.maxRejectedRequestsPerConnection"/>
         <property expression="$func:keepAliveIntervalSeconds" name="pulsar.keepAliveIntervalSeconds"/>
@@ -119,7 +116,6 @@
         <property expression="$func:authParamMap" name="pulsar.authParamMap"/>
         <property expression="$func:authParams" name="pulsar.authParams"/>
         <property expression="$func:authPluginClassName" name="pulsar.authPluginClassName"/>
-        <property expression="$func:autoCertRefreshSeconds" name="pulsar.autoCertRefreshSeconds"/>
         <class name="org.wso2.integration.connector.PulsarConfig"/>
     </sequence>
 </template>
