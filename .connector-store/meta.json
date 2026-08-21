@@ -16,7 +16,7 @@
     ],
     "releases": [
         {
-            "tagName": "v0.9.5",
+            "tagName": "v1.0.0",
             "products": [
                 "MI 4.4.0",
                 "MI 4.5.0",
@@ -180,7 +180,7 @@
             ],
             "connections": [
                 {
-                    "name": "pulsar",
+                    "name": "pulsarSecure",
                     "description": "Pulsar Connection",
                     "params": [
                         {
@@ -194,8 +194,85 @@
                             "name": "serviceUrl",
                             "type": "stringOrExpression",
                             "required": true,
-                            "defaultValue": "pulsar://localhost:6650/",
-                            "description": "The Pulsar service URL to connect to (e.g., pulsar://localhost:6650)."
+                            "defaultValue": "pulsar+ssl://localhost:6651/",
+                            "description": "The Pulsar service URL to connect to (e.g., pulsar+ssl://localhost:6651/)."
+                        },
+                        {
+                            "name": "authenticationType",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "None",
+                            "description": "The authentication mechanism to use for authenticating with Pulsar. Supported values: None, JWT, TLS, OAuth2. Supported values: None, JWT"
+                        },
+                        {
+                            "name": "jwtToken",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The JSON Web Token (JWT) used for authenticating with the Pulsar broker."
+                        },
+                        {
+                            "name": "tlsAllowInsecureConnection",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Allow insecure TLS connections by skipping certificate validation."
+                        },
+                        {
+                            "name": "useKeyStoreTls",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Enable TLS using a Java KeyStore."
+                        },
+                        {
+                            "name": "tlsTrustCertsFilePath",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Path to the trusted TLS certificate file."
+                        },
+                        {
+                            "name": "tlsTrustStorePath",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Path to the TLS trust store file."
+                        },
+                        {
+                            "name": "tlsTrustStoreType",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Type of the TLS trust store (e.g., JKS, PKCS12)."
+                        },
+                        {
+                            "name": "tlsTrustStorePassword",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Password for the TLS trust store."
+                        },
+                        {
+                            "name": "tlsProtocols",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Comma-separated list of enabled TLS protocols (e.g., TLSv1.2,TLSv1.3)."
+                        },
+                        {
+                            "name": "tlsCiphers",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Comma-separated list of enabled TLS cipher suites. (e.g., TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256)"
+                        },
+                        {
+                            "name": "enableTlsHostnameVerification",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Enable hostname verification for TLS connections."
                         },
                         {
                             "name": "connectionTimeoutMs",
@@ -354,7 +431,7 @@
                     ]
                 },
                 {
-                    "name": "pulsarSecure",
+                    "name": "pulsar",
                     "description": "Pulsar Connection",
                     "params": [
                         {
@@ -368,85 +445,8 @@
                             "name": "serviceUrl",
                             "type": "stringOrExpression",
                             "required": true,
-                            "defaultValue": "pulsar+ssl://localhost:6651/",
-                            "description": "The Pulsar service URL to connect to (e.g., pulsar+ssl://localhost:6651/)."
-                        },
-                        {
-                            "name": "authenticationType",
-                            "type": "combo",
-                            "required": false,
-                            "defaultValue": "None",
-                            "description": "The authentication mechanism to use for authenticating with Pulsar. Supported values: None, JWT, TLS, OAuth2. Supported values: None, JWT"
-                        },
-                        {
-                            "name": "jwtToken",
-                            "type": "stringOrExpression",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "The JSON Web Token (JWT) used for authenticating with the Pulsar broker."
-                        },
-                        {
-                            "name": "tlsAllowInsecureConnection",
-                            "type": "boolean",
-                            "required": false,
-                            "defaultValue": "false",
-                            "description": "Allow insecure TLS connections by skipping certificate validation."
-                        },
-                        {
-                            "name": "useKeyStoreTls",
-                            "type": "boolean",
-                            "required": false,
-                            "defaultValue": "false",
-                            "description": "Enable TLS using a Java KeyStore."
-                        },
-                        {
-                            "name": "tlsTrustCertsFilePath",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Path to the trusted TLS certificate file."
-                        },
-                        {
-                            "name": "tlsTrustStorePath",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Path to the TLS trust store file."
-                        },
-                        {
-                            "name": "tlsTrustStoreType",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Type of the TLS trust store (e.g., JKS, PKCS12)."
-                        },
-                        {
-                            "name": "tlsTrustStorePassword",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Password for the TLS trust store."
-                        },
-                        {
-                            "name": "tlsProtocols",
-                            "type": "stringOrExpression",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "Comma-separated list of enabled TLS protocols (e.g., TLSv1.2,TLSv1.3)."
-                        },
-                        {
-                            "name": "tlsCiphers",
-                            "type": "stringOrExpression",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "Comma-separated list of enabled TLS cipher suites. (e.g., TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256)"
-                        },
-                        {
-                            "name": "enableTlsHostnameVerification",
-                            "type": "boolean",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "Enable hostname verification for TLS connections."
+                            "defaultValue": "pulsar://localhost:6650/",
+                            "description": "The Pulsar service URL to connect to (e.g., pulsar://localhost:6650)."
                         },
                         {
                             "name": "connectionTimeoutMs",
